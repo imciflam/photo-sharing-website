@@ -15,11 +15,11 @@ div {
 }
 
 .user-list-button {
-  color: #242323;
+  color: #222222;
   text-decoration: none;
   transition-duration: 0.4s;
 }
 
 .user-list-button:hover {
-  color: rgb(42, 42, 42);
+  color: rgb(68, 68, 68);
 }

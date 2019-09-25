@@ -57,6 +57,7 @@ div {
   margin-top: 30px;
   opacity: 0.8;
   transition: 0.4s;
+  border-radius: 5px;
 }
 
 .user-detail-photo-button:hover {
