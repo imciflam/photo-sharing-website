@@ -1,5 +1,14 @@
 # photo-sharing-website
 
-npm install
-node loadDatabase.js
-node webServer.js
+install packages
+```npm install```
+
+run mongodb
+
+```mongod```
+
+load data
+```node loadDatabase.js```
+
+run server
+```node webServer.js```
