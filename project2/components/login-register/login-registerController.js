@@ -23,7 +23,7 @@ cs142App.controller("LoginRegisterController", [
         function(loggedInUser) {
           $scope.main.loggedInUser = loggedInUser;
           $scope.main.message = "Hi " + loggedInUser.first_name;
-          $location.path("/users/");
+          $location.path("/users/" + loggedInUser._id);
         },
         function(err) {
           alert("error");
@@ -40,8 +40,8 @@ cs142App.controller("LoginRegisterController", [
           function(registeredUser) {
             $scope.main.registeredUser = registeredUser;
             $scope.main.message = "Hi " + registeredUser.first_name;
-            $location.path("/users/" + registeredUser._id);
-            console.log(registeredUser);
+            // $location.path("/users/" + registeredUser._id); // can do though gotta double all log flgs
+            alert("account created. log in to proceed.");
           },
           function(err) {
             alert("error");

@@ -54,6 +54,7 @@ cs142App.controller("MainController", [
 
     /* No logged-in user, redirect to /login-register unless already there */
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
+      console.log($scope.main);
       if (!$scope.main.loggedInUser) {
         if (
           next.templateUrl !==
