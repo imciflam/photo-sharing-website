@@ -274,11 +274,17 @@ app.post("/admin/login", function(request, response) {
 });
 
 app.post("/admin/register", function(request, response) {
-  console.log("fkn");
-  var registerName = request.body.reg_name;
-  console.log(request.body.login_name); //works till here
+  var registerName = {
+    first_name: request.body.login_name,
+    last_name: "",
+    login_name: request.body.login_name,
+    location: "",
+    description: "",
+    occupation: ""
+  };
+
   // add this one to scheme
-  User.insertOne({ reg_name: registerName }, function(err, user) {
+  User.create(registerName, function(err, user) {
     if (err) {
       console.log("Doing /admin/register error:", err);
       response.status(400).send(JSON.stringify(err));
