@@ -37,7 +37,8 @@ cs142App.controller("MainController", [
   "$rootScope",
   "$resource",
   "$location",
-  function($scope, $rootScope, $resource, $location) {
+  "$http",
+  function($scope, $rootScope, $resource, $location, $http) {
     $scope.main = {
       title: "Users",
       loggedInUser: null,
@@ -54,7 +55,6 @@ cs142App.controller("MainController", [
 
     /* No logged-in user, redirect to /login-register unless already there */
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
-      console.log($scope.main);
       if (!$scope.main.loggedInUser) {
         if (
           next.templateUrl !==
@@ -80,8 +80,28 @@ cs142App.controller("MainController", [
       );
     };
 
+    const Upload = $resource("/photo/new");
+
     $scope.uploadFile = function(files) {
-      alert("h");
+      console.log($scope);
+      var fd = new FormData();
+      //Take the first selected file
+      fd.append("file", files[0]);
+      console.log(files);
+      const data = files[0];
+      $http.post("/upload", data).then(
+        function(response) {
+          files[0] = file;
+        },
+        function(err) {}
+      );
+
+      Upload.save({ file: files[0] }).$promise.then(
+        function(response) {
+          files[0] = file;
+        },
+        function(err) {}
+      );
     };
   }
 ]);

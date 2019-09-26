@@ -4,6 +4,7 @@ cs142App.controller("LoginRegisterController", [
   "$scope",
   "$resource",
   "$location",
+  "$http",
   function($scope, $resource, $location) {
     $scope.log = {
       loginName: "",
