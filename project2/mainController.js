@@ -79,5 +79,9 @@ cs142App.controller("MainController", [
         }
       );
     };
+
+    $scope.uploadFile = function(files) {
+      alert("h");
+    };
   }
 ]);
