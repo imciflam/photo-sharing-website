@@ -221,13 +221,14 @@ app.get("/photosOfUser/:id", function(request, response) {
  */
 
 // Set The Storage Engine
+
+const getDate = Date.now();
+
 const storage = multer.diskStorage({
-  destination: "./public/uploads/",
+  destination: "./images/",
   filename: function(req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, file.originalname);
+    // can do file.fieldname + "-" + getDate + path.extname(file.originalname)) to avoid clashes
   }
 });
 
@@ -260,20 +261,38 @@ app.set("view engine", "html");
 
 app.post("/upload", (req, res) => {
   try {
-    console.log(req.session.user._id);
+    // console.log(req.session.user._id);
+    // console.log(req);
     upload(req, res, err => {
+      console.log(res.req.file.originalname);
       if (err) {
-        res.render("index", {
-          msg: err
-        });
+        console.log("error");
       } else {
         if (req.file == undefined) {
-          res.render("index", {
-            msg: "Error: No File Selected!"
-          });
+          console.log("No File Selected");
         } else {
           console.log("all done");
           console.log("saving to db");
+          const date = new Date();
+          const pic = {
+            file_name: res.req.file.originalname,
+            user_id: req.session.user._id,
+            comments: [],
+            date_time: date
+          };
+
+          // console.log(pic);
+          // add this one to scheme
+
+          Photo.create(pic, function(err, photo) {
+            if (err) {
+              console.log("Doing /photo/new error:", err);
+              response.status(400).send(JSON.stringify(err));
+              return;
+            }
+            req.session.photo = photo;
+            res.status(200).send(photo);
+          });
         }
       }
     });
